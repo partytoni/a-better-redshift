@@ -133,9 +133,10 @@ def set_brightness(_):
 
 
 def quit(_):
-    notify.uninit()
-    gtk.main_quit()
     os.system("killall -q redshift")
+    abs_path = os.path.abspath(os.path.dirname(__file__))
+    os.system("rm -r __pycache__")
+    gtk.main_quit()
 
 
 if __name__ == "__main__":

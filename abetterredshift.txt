@@ -1,0 +1,3 @@
+Name=A Better Redshift
+Exec=/home/antonio/Documenti/programmi/a-better-redshift/a-better-redshift.py
+Icon=/home/antonio/Documenti/programmi/a-better-redshift/icon.png
