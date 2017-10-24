@@ -1,6 +1,6 @@
 #!/usr/bin/python3.5
-
-
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 import os
 
@@ -34,6 +34,8 @@ class BrightnessWindow(Gtk.Window):
             if int(value) < 1 or int(value) > 10:
                 label.set_text("Insert a value between 1 and 10")
                 return
+        except TypeError:
+            value = "10"
         except:
             label.set_text("Insert a real number")
             return

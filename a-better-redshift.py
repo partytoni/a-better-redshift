@@ -5,6 +5,8 @@ import gi
 import signal
 import time
 
+gi.require_version('Gtk', '3.0')
+gi.require_version('AppIndicator3', '0.1')
 from gi.repository import Gtk as gtk
 from gi.repository import AppIndicator3 as appindicator
 gi.require_version('Notify', '0.7')
@@ -27,7 +29,11 @@ def main():
 def build_menu():
     menu = gtk.Menu()
 
-    info = gtk.MenuItem("Current")
+    info = gtk.MenuItem("Click to refresh stats")
+    info.connect('activate', refresh, info)
+    menu.append(info)
+
+    init()
 
     temperature = gtk.MenuItem('Set Temperature')
     temperature.connect('activate', set_temperature)
@@ -40,8 +46,12 @@ def build_menu():
     item_quit = gtk.MenuItem('Quit')
     item_quit.connect('activate', quit)
     menu.append(item_quit)
-    menu.show_all()
 
+
+    menu.show_all()
+    return menu
+
+def init():
     config_path = os.path.abspath(os.path.dirname(__file__)) + "/config"
     file_name = config_path + "/brightness.txt"
     brightness = "10"
@@ -76,8 +86,37 @@ def build_menu():
     os.system(command)
     print(command)
 
-    return menu
+def refresh(_, info):
+    config_path = os.path.abspath(os.path.dirname(__file__)) + "/config"
+    file_name = config_path + "/brightness.txt"
+    brightness = "10"
+    if os.path.exists(file_name):
+        with open(file_name, 'rb') as f:
+            try:
+                brightness = f.read()
+            except Exception as e:  # whatever reader errors you care about
+                print("ERROR "+e)
+                # setting temperature
+    print("BRIGHTNESS _ A-BETTER-REDSHIFT "+str(int(brightness)))
+    brightness=str(int(brightness))
+    if brightness == "10":
+        brightness = "1"
+    else:
+        brightness = "0." + str(int(brightness))
 
+
+    file_name = config_path + "/temperature.txt"
+    int_temperature = 7000
+    if os.path.exists(file_name):
+        with open(file_name, 'rb') as f:
+            try:
+                temperature = f.readline()
+                int_temperature = int(temperature)
+            except(e):  # whatever reader errors you care about
+                print("ERROR "+e)
+                # setting temperature
+
+    info.set_label("b: "+brightness+"; t: "+str(int_temperature))
 
 def set_temperature(_):
     win1 = TemperatureWindow()
@@ -96,6 +135,7 @@ def set_brightness(_):
 def quit(_):
     notify.uninit()
     gtk.main_quit()
+    os.system("killall -q redshift")
 
 
 if __name__ == "__main__":
