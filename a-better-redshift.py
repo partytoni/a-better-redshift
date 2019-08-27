@@ -17,7 +17,7 @@ from set_brightness import BrightnessWindow
 
 
 def main():
-    cwd = os.path.dirname(__file__) + '/big_icon.png'
+    cwd = os.path.dirname(__file__) + '/icon.png'
     print(cwd)
     indicator = appindicator.Indicator.new("Indicator Volume", os.path.abspath(
         cwd), appindicator.IndicatorCategory.SYSTEM_SERVICES)

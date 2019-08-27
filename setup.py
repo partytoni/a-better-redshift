@@ -12,11 +12,13 @@ with open(file_name, 'w') as f:
 		f.write("Terminal=false\n")
 		f.write("Type=Application\n")
 		f.write("Exec="+os.path.abspath(os.path.dirname(__file__))+"/a-better-redshift.py\n")
-		f.write("Icon="+os.path.abspath(os.path.dirname(__file__))+"/big_icon.png\n")
+		f.write("Icon="+os.path.abspath(os.path.dirname(__file__))+"/icon.png\n")
 		f.close()
+		os.system("mv "+os.path.abspath(os.path.dirname(__file__))+"/abetterredshift.desktop ~/.local/share/applications")
+		print ("A menu entry has been added to ~/.local/share/applications")
 	except:  
 		print("ERROR\n\n")
 		
-os.system("mv "+os.path.abspath(os.path.dirname(__file__))+"/abetterredshift.desktop ~/.local/share/applications")
 
-print ("A menu entry has been added to ~/.local/share/applications")
+
+
