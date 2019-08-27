@@ -18,3 +18,5 @@ with open(file_name, 'w') as f:
 		print("ERROR\n\n")
 		
 os.system("mv "+os.path.abspath(os.path.dirname(__file__))+"/abetterredshift.desktop ~/.local/share/applications")
+
+print ("A menu entry has been added to ~/.local/share/applications")
