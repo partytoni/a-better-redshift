@@ -19,7 +19,7 @@ from set_brightness import BrightnessWindow
 def main():
     cwd = os.path.dirname(__file__) + '/icon.png'
     print(cwd)
-    indicator = appindicator.Indicator.new("Indicator Volume", os.path.abspath(
+    indicator = appindicator.Indicator.new("Bettershift", os.path.abspath(
         cwd), appindicator.IndicatorCategory.SYSTEM_SERVICES)
     indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
     indicator.set_menu(build_menu())
